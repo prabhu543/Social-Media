@@ -28,7 +28,7 @@ const loginUser = async (req, res) => {
 		if (!user || user.password !== password) {
 			return res.status(400).json({ message: 'Invalid email or password' });
 		}
-		res.json({ userId: user.email, message: 'Login successful' });
+		res.json({ userId: user._id.toString(), message: 'Login successful' });
 	} catch (err) {
 		res.status(500).json({ message: 'Server error' });
 	}

@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
 import Home from './components/Home';
+// import UsersList from './components/UsersList';
 
 function App() {
 	return (
@@ -20,13 +21,17 @@ function App() {
 					element={<Register />}
 				/>
 				<Route
-					path='/profile/:id'
+					path='/profile/:userId'
 					element={<Profile />}
 				/>
 				<Route
 					path='/'
 					element={<Home />}
 				/>
+				{/* <Route
+					path='/users'
+					element={<UsersList />}
+				/> */}
 			</Routes>
 		</BrowserRouter>
 	);

@@ -11,12 +11,12 @@ export default function Login({ onLogin }) {
 	const navigate = useNavigate();
 	const BASE_URL = 'http://localhost:5000/api';
 
-	// Check if user is already logged in on mount
+	// Check if userId is in localStorage to decide if logged in
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-		if (token) {
-			// User is already logged in, redirect to feed
-			navigate('/feed');
+		const userId = localStorage.getItem('userId');
+		if (userId) {
+			// User already logged in, redirect to Home or feed
+			navigate('/');
 		}
 	}, [navigate]);
 
@@ -30,15 +30,15 @@ export default function Login({ onLogin }) {
 
 		try {
 			const res = await axios.post(`${BASE_URL}/auth/login`, formData);
-			const { token, userId } = res.data;
+			const { userId } = res.data;
 
-			// Save token and userId in localStorage for session persistence
-			localStorage.setItem('token', token);
+			// Save only userId in localStorage (no token)
 			localStorage.setItem('userId', userId);
 
 			if (onLogin) onLogin();
 
-			navigate('/feed');
+			// Navigate to Home after login
+			navigate('/');
 		} catch (err) {
 			const msg = err.response?.data?.message || err.message || 'Login failed';
 			setError(msg);

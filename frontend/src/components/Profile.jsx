@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Profile() {
+	const { userId } = useParams();
 	const navigate = useNavigate();
-
-	const userEmail = localStorage.getItem('userId'); // userId stored as email on login
-	const token = localStorage.getItem('token');
 	const BASE_URL = 'http://localhost:5000/api';
 
 	const [user, setUser] = useState(null);
@@ -14,8 +12,11 @@ export default function Profile() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState('');
 
+	// Get current logged-in userId from localStorage
+	const currentUserId = localStorage.getItem('userId');
+
 	useEffect(() => {
-		if (!userEmail || !token) {
+		if (!userId) {
 			navigate('/login');
 			return;
 		}
@@ -23,15 +24,8 @@ export default function Profile() {
 		const fetchProfileAndPosts = async () => {
 			setLoading(true);
 			try {
-				// Fetch user profile
-				const userRes = await axios.get(`${BASE_URL}/users/${userEmail}`, {
-					headers: { Authorization: `Bearer ${token}` },
-				});
-
-				// Fetch user's posts
-				const postsRes = await axios.get(`${BASE_URL}/posts/user/${userEmail}`, {
-					headers: { Authorization: `Bearer ${token}` },
-				});
+				const userRes = await axios.get(`${BASE_URL}/users/${userId}`);
+				const postsRes = await axios.get(`${BASE_URL}/posts/user/${userId}`);
 
 				setUser(userRes.data);
 				setPosts(postsRes.data);
@@ -45,10 +39,9 @@ export default function Profile() {
 		};
 
 		fetchProfileAndPosts();
-	}, [userEmail, token, navigate]);
+	}, [userId, navigate]);
 
 	const handleLogout = () => {
-		localStorage.removeItem('token');
 		localStorage.removeItem('userId');
 		navigate('/login');
 	};
@@ -65,16 +58,19 @@ export default function Profile() {
 			<Link
 				to='/'
 				className='text-blue-600 hover:underline mb-4 inline-block'>
-				&larr; Back to Feed
+				&larr; Back to Home
 			</Link>
 
 			<div className='flex justify-between items-center mb-4'>
 				<h1 className='text-3xl font-bold'>{user.name}</h1>
-				<button
-					onClick={handleLogout}
-					className='bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition'>
-					Logout
-				</button>
+				{/* Conditionally show Logout button only on own profile */}
+				{currentUserId === userId && (
+					<button
+						onClick={handleLogout}
+						className='bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition'>
+						Logout
+					</button>
+				)}
 			</div>
 
 			<p className='text-gray-600 mb-1'>Email: {user.email}</p>

@@ -15,35 +15,13 @@ function Navbar() {
 			<ul className='hidden md:flex space-x-6'>
 				<li>
 					<NavLink
-						to='/feed'
+						to='/users'
 						className={({ isActive }) =>
 							isActive
 								? 'text-blue-600 font-medium'
 								: 'text-gray-600 hover:text-blue-600 transition'
 						}>
-						Feed
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						to='/jobs'
-						className={({ isActive }) =>
-							isActive
-								? 'text-blue-600 font-medium'
-								: 'text-gray-600 hover:text-blue-600 transition'
-						}>
-						Jobs
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						to='/connections'
-						className={({ isActive }) =>
-							isActive
-								? 'text-blue-600 font-medium'
-								: 'text-gray-600 hover:text-blue-600 transition'
-						}>
-						Connections
+						Users
 					</NavLink>
 				</li>
 				<li>
@@ -58,7 +36,6 @@ function Navbar() {
 					</NavLink>
 				</li>
 			</ul>
-			{/* Optional: add mobile hamburger menu using shadcn/ui here */}
 		</nav>
 	);
 }
