@@ -11,26 +11,26 @@ export default function Register() {
 	});
 	const [error, setError] = useState('');
 	const navigate = useNavigate();
+
 	const BASE_URL = 'https://social-media-xi-roan.vercel.app/api';
 
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 		setError('');
 	};
-
+	// submit form
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
 			const res = await axios.post(`${BASE_URL}/auth/register`, formData);
 			alert(res.data.message || 'Registration successful! Please login.');
-			navigate('/login');
+			navigate('/login'); // Redirect to login after successful registration
 		} catch (err) {
 			const msg =
 				err.response?.data?.message || err.message || 'Registration failed';
 			setError(msg);
 		}
 	};
-
 
 	return (
 		<form

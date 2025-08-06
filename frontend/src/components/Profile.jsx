@@ -5,6 +5,7 @@ import axios from 'axios';
 export default function Profile() {
 	const { userId } = useParams();
 	const navigate = useNavigate();
+
 	const BASE_URL = 'https://social-media-xi-roan.vercel.app/api';
 
 	const [user, setUser] = useState(null);
@@ -20,7 +21,7 @@ export default function Profile() {
 			navigate('/login');
 			return;
 		}
-
+		// Fetch user profile and posts
 		const fetchProfileAndPosts = async () => {
 			setLoading(true);
 			try {
@@ -40,7 +41,8 @@ export default function Profile() {
 
 		fetchProfileAndPosts();
 	}, [userId, navigate]);
-
+	
+	// to logout
 	const handleLogout = () => {
 		localStorage.removeItem('userId');
 		navigate('/login');

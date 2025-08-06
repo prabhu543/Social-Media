@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 function Navbar() {
 	const [userId, setUserId] = useState(null);
 
-	// On component mount, read the userId from localStorage and set state
+	// read the userId from localStorage and set state 
 	useEffect(() => {
 		const storedUserId = localStorage.getItem('userId');
 		setUserId(storedUserId);
@@ -16,8 +16,8 @@ function Navbar() {
 		<nav className='w-full bg-white border-b border-gray-200 px-7 py-3 flex items-center justify-between'>
 			<Link
 				to='/'
-				className='text-xl font-bold'>
-				LinkedInClone
+				className='text-xl'>
+				Social Media
 			</Link>
 
 			<div>

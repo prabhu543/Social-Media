@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const BASE_URL = 'https://social-media-xi-roan.vercel.app/api';
 
+// Function to shuffle users array
 function shuffleArray(array) {
 	let arr = array.slice();
 	for (let i = arr.length - 1; i > 0; i--) {
@@ -57,7 +58,6 @@ export default function UsersList() {
 						onClick={() => navigate(`/profile/${user._id}`)}>
 						<p className='font-semibold text-lg'>{user.name}</p>
 						<p className='text-gray-600'>{user.email}</p>
-						{/* <p>{user.bio || 'No bio available.'}</p> */}
 					</li>
 				))}
 			</ul>

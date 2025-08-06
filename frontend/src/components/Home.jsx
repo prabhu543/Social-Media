@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import UsersList from './UsersList'; // adjust path as needed
+import UsersList from './UsersList';
 
 const BASE_URL = 'https://social-media-xi-roan.vercel.app/api';
 
@@ -11,6 +11,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
+	// Function to get posts from backend
 	const fetchPosts = async () => {
 		setLoading(true);
 		try {
@@ -27,7 +28,7 @@ export default function Home() {
 	useEffect(() => {
 		fetchPosts();
 	}, []);
-
+	//to create a new post when form submitted
 	const createPost = async (e) => {
 		e.preventDefault();
 		const userId = localStorage.getItem('userId');

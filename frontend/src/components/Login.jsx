@@ -9,13 +9,14 @@ export default function Login({ onLogin }) {
 	});
 	const [error, setError] = useState('');
 	const navigate = useNavigate();
+
 	const BASE_URL = 'https://social-media-xi-roan.vercel.app/api';
 
 	// Check if userId is in localStorage to decide if logged in
 	useEffect(() => {
 		const userId = localStorage.getItem('userId');
 		if (userId) {
-			// User already logged in, redirect to Home or feed
+			// User already logged in, redirect to Home
 			navigate('/');
 		}
 	}, [navigate]);
@@ -25,6 +26,7 @@ export default function Login({ onLogin }) {
 		setError('');
 	};
 
+	//  form submission, send login request
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -32,7 +34,6 @@ export default function Login({ onLogin }) {
 			const res = await axios.post(`${BASE_URL}/auth/login`, formData);
 			const { userId } = res.data;
 
-			// Save only userId in localStorage (no token)
 			localStorage.setItem('userId', userId);
 
 			if (onLogin) onLogin();
@@ -40,7 +41,7 @@ export default function Login({ onLogin }) {
 			// Navigate to Home after login
 			navigate('/');
 		} catch (err) {
-			const msg = err.response?.data?.message || err.message || 'Login failed';
+			const msg = err.message || 'Login failed';
 			setError(msg);
 		}
 	};

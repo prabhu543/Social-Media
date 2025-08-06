@@ -19,6 +19,7 @@ function App() {
 					path='/register'
 					element={<Register />}
 				/>
+				{/* Profile route */}
 				<Route
 					path='/profile/:userId'
 					element={<Profile />}
