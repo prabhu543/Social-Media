@@ -9,7 +9,7 @@ export default function Login({ onLogin }) {
 	});
 	const [error, setError] = useState('');
 	const navigate = useNavigate();
-	const BASE_URL = 'http://localhost:5000/api';
+	const BASE_URL = 'https://social-media-xi-roan.vercel.app/api';
 
 	// Check if userId is in localStorage to decide if logged in
 	useEffect(() => {

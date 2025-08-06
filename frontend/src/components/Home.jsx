@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import UsersList from './UsersList'; // adjust path as needed
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'https://social-media-xi-roan.vercel.app/api';
 
 export default function Home() {
 	const [posts, setPosts] = useState([]);

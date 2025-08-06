@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function Profile() {
 	const { userId } = useParams();
 	const navigate = useNavigate();
-	const BASE_URL = 'http://localhost:5000/api';
+	const BASE_URL = 'https://social-media-xi-roan.vercel.app/api';
 
 	const [user, setUser] = useState(null);
 	const [posts, setPosts] = useState([]);
