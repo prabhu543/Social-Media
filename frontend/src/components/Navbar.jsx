@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 function Navbar() {
-	const userId = localStorage.getItem('userId');
+	const [userId, setUserId] = useState(null);
+
+	// On component mount, read the userId from localStorage and set state
+	useEffect(() => {
+		const storedUserId = localStorage.getItem('userId');
+		setUserId(storedUserId);
+	}, []);
+
 	const profilePath = userId ? `/profile/${userId}` : '/login';
 
 	return (
@@ -12,30 +19,22 @@ function Navbar() {
 				className='text-xl font-bold'>
 				LinkedInClone
 			</Link>
-			<ul className='hidden md:flex space-x-6'>
-				<li>
-					<NavLink
-						to='/users'
-						className={({ isActive }) =>
-							isActive
-								? 'text-blue-600 font-medium'
-								: 'text-gray-600 hover:text-blue-600 transition'
-						}>
-						Users
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
+
+			<div>
+				{!userId ? (
+					<Link
+						to='/login'
+						className='text-gray-600 hover:text-blue-600 font-medium'>
+						Login
+					</Link>
+				) : (
+					<Link
 						to={profilePath}
-						className={({ isActive }) =>
-							isActive
-								? 'text-blue-600 font-medium'
-								: 'text-gray-600 hover:text-blue-600 transition'
-						}>
+						className='text-gray-600 hover:text-blue-600 font-medium'>
 						Profile
-					</NavLink>
-				</li>
-			</ul>
+					</Link>
+				)}
+			</div>
 		</nav>
 	);
 }
